@@ -26,6 +26,10 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
+## Eclipse
+/.project
+/.settings
+
 .idea
 target
 bower_components
