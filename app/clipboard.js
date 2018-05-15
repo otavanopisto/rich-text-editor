@@ -20,6 +20,7 @@ function onPasteFile(e, saver, onValueChanged, limit, file) {
   if (file) {
     onPasteBlob(e, file, saver, $(e.currentTarget), onValueChanged, limit);
   } else {
+    const clipboardData = e.originalEvent.clipboardData;
     const clipboardDataAsHtml = clipboardData.getData('text/html');
     if (clipboardDataAsHtml) {
       onPasteHtml(e, $(e.currentTarget), clipboardDataAsHtml, limit, saver, onValueChanged);
