@@ -84,9 +84,10 @@ function markAndGetInlineImages($editor) {
             $el: $(el)
         }))
     images.filter(({type}) => fileTypes.indexOf(type) === -1 && type !== 'image/svg+xml').forEach(({$el}) => $el.remove())
-    const pngImages = images.filter(({type}) => fileTypes.indexOf(type) >=0 )
-    pngImages.forEach(({$el}) => $el.attr('src', loadingImg))
-    return pngImages
+//    const pngImages = images.filter(({type}) => fileTypes.indexOf(type) >=0 )
+//    pngImages.forEach(({$el}) => $el.attr('src', loadingImg))
+//    return pngImages
+    return [];
 }
 
 function decodeBase64Image(dataString) {
