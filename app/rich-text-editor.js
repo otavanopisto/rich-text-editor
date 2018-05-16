@@ -66,9 +66,16 @@ module.exports.makeRichText = (answer, options, onValueChanged = () => {}) => {
             if (!pasteInProgress) onValueChanged(u.sanitizeContent(e.currentTarget))
         })
         .on('drop', e => {
-            setTimeout(() => {
-                $(e.target).html(u.sanitize(e.target.innerHTML))
-            },0)
+          e.preventDefault();
+
+          if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
+            var file = e.originalEvent.dataTransfer.files[0];
+            clipboard.onPasteFile(e, saver, onValueChanged, limit, file);
+          }
+          
+          setTimeout(() => {
+            $(e.target).html(u.sanitize(e.target.innerHTML))
+          },0)
         })
         .on('paste', e => {
             pasteInProgress = true

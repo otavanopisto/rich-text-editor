@@ -3,7 +3,8 @@ const u = require('./util')
 const Bacon = require('baconjs')
 
 module.exports = {
-    onPaste
+    onPaste,
+    onPasteFile
 }
 
 const SCREENSHOT_LIMIT_ERROR = () => new Bacon.Error('Screenshot limit reached!')
@@ -12,13 +13,22 @@ const fileTypes = ['image/png', 'image/jpeg']
 function onPaste(e, saver, onValueChanged, limit) {
     const clipboardData = e.originalEvent.clipboardData
     const file = clipboardData.items && clipboardData.items[0].getAsFile()
-    if (file) {
-        onPasteBlob(e, file, saver, $(e.currentTarget), onValueChanged, limit)
-    } else {
-        const clipboardDataAsHtml = clipboardData.getData('text/html')
-        if (clipboardDataAsHtml) onPasteHtml(e, $(e.currentTarget), clipboardDataAsHtml, limit, saver, onValueChanged)
-        else onLegacyPasteImage($(e.currentTarget), saver, limit, onValueChanged)
+    onPasteFile(e, saver, onValueChanged, limit, file);
+}
+
+function onPasteFile(e, saver, onValueChanged, limit, file) {
+  if (file) {
+    onPasteBlob(e, file, saver, $(e.currentTarget), onValueChanged, limit);
+  } else {
+    const clipboardData = e.originalEvent.clipboardData;
+    const clipboardDataAsHtml = clipboardData.getData('text/html');
+    if (clipboardDataAsHtml) {
+      onPasteHtml(e, $(e.currentTarget), clipboardDataAsHtml, limit, saver, onValueChanged);
+    } 
+    else { 
+      onLegacyPasteImage($(e.currentTarget), saver, limit, onValueChanged);
     }
+  }
 }
 
 function onPasteBlob(event, file, saver, $answer, onValueChanged, limit) {
@@ -74,9 +84,10 @@ function markAndGetInlineImages($editor) {
             $el: $(el)
         }))
     images.filter(({type}) => fileTypes.indexOf(type) === -1 && type !== 'image/svg+xml').forEach(({$el}) => $el.remove())
-    const pngImages = images.filter(({type}) => fileTypes.indexOf(type) >=0 )
-    pngImages.forEach(({$el}) => $el.attr('src', loadingImg))
-    return pngImages
+//    const pngImages = images.filter(({type}) => fileTypes.indexOf(type) >=0 )
+//    pngImages.forEach(({$el}) => $el.attr('src', loadingImg))
+//    return pngImages
+    return [];
 }
 
 function decodeBase64Image(dataString) {

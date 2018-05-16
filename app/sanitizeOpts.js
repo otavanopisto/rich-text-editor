@@ -5,7 +5,7 @@ module.exports = {
         'br'
     ],
     allowedAttributes: {
-        img: ['src', 'alt']
+        img: ['src', 'alt', 'class']
     },
     allowedSchemes: ['data'],
     exclusiveFilter: frame => frame.attribs['data-js'] === 'mathEditor'
