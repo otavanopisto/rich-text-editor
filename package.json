@@ -19,7 +19,7 @@
     "bowerify": "browserify app/rich-text-editor.js -t babelify --no-bundle-external -d -s I -o dist/rich-text-editor.js && browserify node_modules/sanitize-html/dist/index.js -t babelify -d -s I -o dist/sanitize-html.js && bash -c 'cp public/{rich-text-editor.css,*.svg} dist/'",
     "browserify": "browserify proto/rich-text-editor-bundle.js -o proto/rich-text-editor-bundle-generated.js",
     "oo-bowerify": "browserify app/rich-text-editor.js -t babelify --no-bundle-external -d -s I -o otavanopisto/rich-text-editor.js && browserify node_modules/sanitize-html/dist/index.js -t babelify -d -s I -o otavanopisto/sanitize-html.js && bash -c 'cp public/{rich-text-editor.css,*.svg} otavanopisto/'",
-    "oo-compile": "npm run oo-bowerify && browserify proto/rich-text-editor-bundle.js -o otavanopisto/rich-text-editor-bundle-generated-babelified.js -t babelify",
+    "oo-compile": "npm run oo-bowerify && browserify proto/rich-text-editor-bundle.js -o otavanopisto/digabi-rich-text-editor.js -t babelify",
     "generateMathButtons": "scripts/createMathSvg.js",
     "generateSite": "rm -rf site; GENERATE_SITE=true node proto/server.js",
     "lint": "eslint ."
